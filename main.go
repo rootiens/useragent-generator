@@ -129,13 +129,17 @@ func saveToFile(userAgents []string) {
 	}
 	defer file.Close()
 
+	_, _ = file.WriteString("const uap = [\n")
+
 	for _, userAgent := range userAgents {
-		_, err := file.WriteString(userAgent + "\n")
+		_, err := file.WriteString("\"" + userAgent + "\",\n")
 		if err != nil {
 			fmt.Println("Error writing to file:", err)
 			return
 		}
 	}
+
+	_, _ = file.WriteString("]")
 
 	fmt.Println("User agents saved to output.txt")
 }
